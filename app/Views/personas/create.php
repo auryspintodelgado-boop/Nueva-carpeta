@@ -31,10 +31,10 @@
                 </div>
                 <div class="col-md-2 mb-3">
                     <label class="form-label">Nacionalidad *</label>
-                    <select name="nacionalidad" class="form-select" required>
+                    <select name="nacionalidad_id" class="form-select" required>
                         <option value="">Seleccionar</option>
-                        <option value="V" <?= ($data['nacionalidad'] ?? '') == 'V' ? 'selected' : '' ?>>Venezolano</option>
-                        <option value="E" <?= ($data['nacionalidad'] ?? '') == 'E' ? 'selected' : '' ?>>Extranjero</option>
+                        <option value="1" <?= ($data['nacionalidad_id'] ?? '') == '1' ? 'selected' : '' ?>>Venezolano</option>
+                        <option value="2" <?= ($data['nacionalidad_id'] ?? '') == '2' ? 'selected' : '' ?>>Extranjero</option>
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -63,11 +63,11 @@
             <div class="row">
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Sexo</label>
-                    <select name="sexo" class="form-select">
+                    <select name="sexo_id" class="form-select">
                         <option value="">Seleccionar</option>
-                        <option value="Masculino" <?= ($data['sexo'] ?? '') == 'Masculino' ? 'selected' : '' ?>>Masculino</option>
-                        <option value="Femenino" <?= ($data['sexo'] ?? '') == 'Femenino' ? 'selected' : '' ?>>Femenino</option>
-                        <option value="Otro" <?= ($data['sexo'] ?? '') == 'Otro' ? 'selected' : '' ?>>Otro</option>
+                        <option value="1" <?= ($data['sexo_id'] ?? '') == '1' ? 'selected' : '' ?>>Masculino</option>
+                        <option value="2" <?= ($data['sexo_id'] ?? '') == '2' ? 'selected' : '' ?>>Femenino</option>
+                        <option value="3" <?= ($data['sexo_id'] ?? '') == '3' ? 'selected' : '' ?>>Otro</option>
                     </select>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -95,7 +95,10 @@
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Carrera</label>
-                    <input type="text" name="carrera" class="form-control" value="<?= htmlspecialchars($data['carrera'] ?? '') ?>">
+                    <select name="carrera_id" class="form-select">
+                        <option value="">Seleccionar</option>
+                        <option value="1" <?= ($data['carrera_id'] ?? '') == '1' ? 'selected' : '' ?>>Carrera 1</option>
+                    </select>
                 </div>
                 <div class="col-md-2 mb-3">
                     <label class="form-label">Año/Semestre</label>
@@ -110,17 +113,17 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Sede</label>
-                    <input type="text" name="sede" class="form-control" value="<?= htmlspecialchars($data['sede'] ?? '') ?>">
+                    <select name="sede_id" class="form-select">
+                        <option value="">Seleccionar</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Universidad</label>
-                    <input type="text" name="nombre_universidad" class="form-control" value="<?= htmlspecialchars($data['nombre_universidad'] ?? '') ?>">
-                </div>
-                <div class="col-md-2 mb-3">
-                    <label class="form-label">Siglas</label>
-                    <input type="text" name="siglas_universidad" class="form-control" value="<?= htmlspecialchars($data['siglas_universidad'] ?? '') ?>">
+                    <select name="universidad_id" class="form-select">
+                        <option value="">Seleccionar</option>
+                    </select>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label class="form-label">Tipo de IEU</label>

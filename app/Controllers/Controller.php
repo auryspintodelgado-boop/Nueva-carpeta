@@ -7,9 +7,53 @@
 abstract class Controller {
     protected $model;
     protected $viewPath;
+    protected $authRequired = true;
     
     public function __construct() {
         $this->viewPath = Config::VIEW_PATH;
+        
+        // Verificar autenticación si es requerida
+        if ($this->authRequired && !$this->isAuthenticated()) {
+            $this->redirect('/login');
+        }
+    }
+    
+    /**
+     * Verificar si el usuario está autenticado
+     */
+    protected function isAuthenticated() {
+        return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+    }
+    
+    /**
+     * Obtener el usuario actual
+     */
+    protected function getCurrentUser() {
+        if (!$this->isAuthenticated()) {
+            return null;
+        }
+        
+        return [
+            'id' => $_SESSION['usuario_id'] ?? null,
+            'username' => $_SESSION['username'] ?? null,
+            'nombre_completo' => $_SESSION['nombre_completo'] ?? null,
+            'correo' => $_SESSION['correo'] ?? null,
+            'rol_id' => $_SESSION['rol_id'] ?? null
+        ];
+    }
+    
+    /**
+     * Verificar rol del usuario
+     */
+    protected function hasRole($roleId) {
+        return isset($_SESSION['rol_id']) && $_SESSION['rol_id'] == $roleId;
+    }
+    
+    /**
+     * Verificar si es administrador
+     */
+    protected function isAdmin() {
+        return $this->hasRole(1);
     }
     
     /**

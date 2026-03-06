@@ -1,20 +1,19 @@
 <?php
 /**
- * Punto de entrada principal
- * Sistema de Evaluación, Seguimiento y Caracterización
+ * Entry point del Sistema de Caracterización AURYS
  */
 
 // Iniciar sesión
 session_start();
 
 // Cargar configuración
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/config/database.php';
 
 // Obtener la URL solicitada
 $requestUri = $_SERVER['REQUEST_URI'];
 $scriptName = dirname($_SERVER['SCRIPT_NAME']);
 
-// Limpiar la URI - remover query string también
+// Limpiar la URI
 $path = str_replace($scriptName, '', $requestUri);
 $path = trim($path, '/');
 $path = preg_replace('/\?.*/', '', $path);
@@ -34,9 +33,7 @@ if (empty($path) || $path === 'index.php' || $path === '') {
 
 // Mapear controladores
 $controllerMap = [
-    // Controladores disponibles
     'home' => 'HomeController',
-    '' => 'HomeController',
     'login' => 'LoginController',
     'persona' => 'PersonaController',
     'personas' => 'PersonaController',
@@ -57,7 +54,7 @@ if (isset($controllerMap[$controllerFileName])) {
 }
 
 // Ruta al archivo del controlador
-$controllerFile = __DIR__ . '/../app/Controllers/' . $controllerClass . '.php';
+$controllerFile = __DIR__ . '/app/Controllers/' . $controllerClass . '.php';
 
 if (file_exists($controllerFile)) {
     require_once $controllerFile;
@@ -79,7 +76,6 @@ if (file_exists($controllerFile)) {
                 http_response_code(404);
                 echo "<h1>404 - Método no encontrado</h1>";
                 echo "<p>El método '{$method}' no existe en el controlador '{$controllerClass}'</p>";
-                echo "<p><a href='/dashboard'>Volver al Dashboard</a></p>";
             }
         }
     } else {
@@ -90,13 +86,6 @@ if (file_exists($controllerFile)) {
 } else {
     // Controlador no encontrado
     http_response_code(404);
-    echo "<!DOCTYPE html>";
-    echo "<html><head><title>404 - No Encontrado</title>";
-    echo "<style>body{font-family:Arial,sans-serif;margin:40px;}";
-    echo "h1{color:#667eea;}a{color:#667eea;text-decoration:none;}</style>";
-    echo "</head><body>";
     echo "<h1>404 - Página No Encontrada</h1>";
     echo "<p>El controlador '{$controllerClass}' no existe</p>";
-    echo "<p><a href='/dashboard'>Volver al Dashboard</a></p>";
-    echo "</body></html>";
 }

@@ -24,6 +24,7 @@ class Persona extends Model {
         'edad',
         'correo_electronico',
         'telefono_1',
+        'foto',
         
         // Académicos
         'carrera_id',
@@ -382,6 +383,15 @@ class Persona extends Model {
         $stats['por_estado_registro'] = $stmt->fetchAll();
         
         return $stats;
+    }
+    
+    /**
+     * Obtener promedio de edad
+     */
+    public function getPromedioEdad() {
+        $stmt = $this->db->query("SELECT AVG(edad) as promedio FROM {$this->table} WHERE edad > 0");
+        $result = $stmt->fetch();
+        return round($result['promedio'], 1) ?? 0;
     }
     
     /**

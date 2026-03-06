@@ -19,8 +19,8 @@ class Lookup extends Model {
      */
     public function getActive() {
         $stmt = $this->db->prepare("
-            SELECT * FROM {$this->table} 
-            WHERE activo = 1 OR activa = 1 OR activo = 1 OR active = 1
+            SELECT * FROM {$this->table}
+            WHERE activo = 1 OR activa = 1 OR active = 1
             ORDER BY nombre ASC
         ");
         $stmt->execute();
