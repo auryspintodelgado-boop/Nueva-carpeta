@@ -1,119 +1,84 @@
 <?php
 /**
- * Database Connection Configuration
- * AURYS - Sistema de Gestión de Recursos Humanos
+ * Configuración de Base de Datos
+ * Sistema de Evaluación, Seguimiento y Caracterización
  */
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'aurys_hr');
-
-/**
- * Get database connection
- * @return mysqli|null
- */
-function getDBConnection() {
-    static $conn = null;
+class Database {
+    private static $instance = null;
+    private $connection;
     
-    if ($conn === null) {
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        
-        $conn->set_charset("utf8mb4");
-    }
+    // Configuración de la base de datos
+    private $host = 'localhost';
+    private $db_name = 'sistema_caracterizacion_aurys';
+    private $username = 'root';
+    private $password = '';
+    private $charset = 'utf8mb4';
     
-    return $conn;
-}
-
-/**
- * Start session if not started
- */
-function startSession() {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-}
-
-/**
- * Check if user is logged in
- * @return bool
- */
-function isLoggedIn() {
-    startSession();
-    return isset($_SESSION['user_id']) && isset($_SESSION['role']);
-}
-
-/**
- * Get current user role
- * @return string|null
- */
-function getUserRole() {
-    startSession();
-    return $_SESSION['role'] ?? null;
-}
-
-/**
- * Get current user ID
- * @return int|null
- */
-function getUserId() {
-    startSession();
-    return $_SESSION['user_id'] ?? null;
-}
-
-/**
- * Require login - redirect to login if not authenticated
- */
-function requireLogin() {
-    if (!isLoggedIn()) {
-        header('Location: auth/login.php');
-        exit;
-    }
-}
-
-/**
- * Require specific role
- * @param string|array $roles Allowed roles
- */
-function requireRole($roles) {
-    requireLogin();
-    
-    $userRole = getUserRole();
-    
-    if (is_array($roles)) {
-        if (!in_array($userRole, $roles)) {
-            header('Location: index.php?error=Unauthorized');
-            exit;
-        }
-    } else {
-        if ($userRole !== $roles) {
-            header('Location: index.php?error=Unauthorized');
-            exit;
+    private function __construct() {
+        try {
+            $dsn = "mysql:host={$this->host};dbname={$this->db_name};charset={$this->charset}";
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ];
+            
+            $this->connection = new PDO($dsn, $this->username, $this->password, $options);
+        } catch (PDOException $e) {
+            throw new Exception("Error de conexión: " . $e->getMessage());
         }
     }
+    
+    /**
+     * Obtener instancia única de la base de datos (Singleton)
+     */
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    
+    /**
+     * Obtener la conexión PDO
+     */
+    public function getConnection() {
+        return $this->connection;
+    }
+    
+    /**
+     * Prevenir clonación del objeto
+     */
+    private function __clone() {}
+    
+    /**
+     * Prevenir deserialización
+     */
+    public function __wakeup() {
+        throw new Exception("No se puede deserializar singleton");
+    }
 }
 
 /**
- * Sanitize input
- * @param string $input
- * @return string
+ * Constantes de configuración de la aplicación
  */
-function sanitize($input) {
-    $input = trim($input);
-    $input = stripslashes($input);
-    $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
-    return $input;
-}
-
-/**
- * Get current page title
- * @param string $title
- * @return string
- */
-function getPageTitle($title = '') {
-    return $title ? $title . ' - AURYS HR' : 'AURYS - Sistema de Gestión de Recursos Humanos';
+class Config {
+    const APP_NAME = 'Sistema de Caracterización';
+    const APP_VERSION = '1.0.0';
+    const APP_URL = 'http://localhost';
+    
+    // Rutas
+    const ROOT_PATH = __DIR__ . '/..';
+    const APP_PATH = self::ROOT_PATH . '/app';
+    const VIEW_PATH = self::APP_PATH . '/Views';
+    const CONTROLLER_PATH = self::APP_PATH . '/Controllers';
+    const MODEL_PATH = self::APP_PATH . '/Models';
+    
+    // Configuración de paginación
+    const ITEMS_PER_PAGE = 20;
+    
+    // Configuración de sesión
+    const SESSION_NAME = 'SISTEMA_CARACTERIZACION';
+    const SESSION_LIFETIME = 3600; // 1 hora
 }

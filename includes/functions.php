@@ -25,6 +25,26 @@ function redirect($url) {
 }
 
 /**
+ * Redirect to dashboard based on user role
+ */
+function redirect_to_dashboard() {
+    $role = $_SESSION['role'] ?? '';
+    switch ($role) {
+        case 'admin':
+            redirect('admin/index.php');
+            break;
+        case 'director':
+            redirect('directors/index.php');
+            break;
+        case 'employee':
+            redirect('employees/index.php');
+            break;
+        default:
+            redirect('auth/login.php');
+    }
+}
+
+/**
  * Show JSON response
  * @param mixed $data
  * @param int $statusCode

@@ -1,0 +1,66 @@
+#--------------------------------------------------------------------
+# Example Environment Configuration file
+#
+# This file can be used as a starting point for your own
+# custom .env files, and contains most of the possible settings
+# available in a default install.
+#
+# By default, all of the settings are commented out. If you want
+# to override the setting, you must un-comment it by removing the '#'
+# at the beginning of the line.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+CI_ENVIRONMENT = development
+
+#--------------------------------------------------------------------
+# APP
+#--------------------------------------------------------------------
+
+app.baseURL = 'http://localhost:8080'
+app.forceGlobalSecureRequests = false
+app.CSPEnabled = false
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+# Configuración para XAMPP (MySQL)
+database.default.hostname = localhost
+database.default.database = aurys
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.DBPrefix = 
+database.default.port = 3306
+
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+# Genera una clave con: php spark key:generate
+encryption.key = 'aVeryLongRandomStringForEncryptionKey123!'
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+session.savePath = writable/sessions/
+session.timeToUpdate = 300
+session.regenerateDestroy = false
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+logger.threshold = 4
+
+#--------------------------------------------------------------------
+# HONEYPOT
+#--------------------------------------------------------------------
+# honeypot.enabled = true
+# honeypot.name = honeypot_field
+# honeypot.hidden = 'hidden'
+# honeypot.label = 'Fill This Field'
+# honeypot.html = '<label>Fill This Field<input type="text" name=""></label>'
+# honeypot.timeToRead = 5
