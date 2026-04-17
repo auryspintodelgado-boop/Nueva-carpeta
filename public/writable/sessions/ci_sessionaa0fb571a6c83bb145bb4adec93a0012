@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1776425355;_ci_previous_url|s:36:"http://localhost:8081/index.php/home";id|s:1:"1";username|s:5:"admin";nombre_completo|s:13:"Administrador";rol|s:5:"ADMIN";departamento_id|N;isLoggedIn|b:1;error|s:57:"Solo administradores pueden seleccionar empleado del mes.";__ci_vars|a:1:{s:5:"error";s:3:"old";}

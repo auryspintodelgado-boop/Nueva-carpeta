@@ -31,6 +31,25 @@ class AuthController extends BaseController
     }
 
     /**
+     * Debug endpoint to check current session
+     */
+    public function debugSession()
+    {
+        echo "<pre>";
+        echo "Session data:\n";
+        print_r(session()->get());
+        echo "\n\nUser ID in session: " . session()->get('id');
+        echo "\nLogged in: " . (session()->get('isLoggedIn') ? 'YES' : 'NO');
+
+        if (session()->get('id')) {
+            $user = $this->usuarioModel->find(session()->get('id'));
+            echo "\n\nDatabase user data:\n";
+            print_r($user);
+        }
+        echo "</pre>";
+    }
+
+    /**
      * Procesa el login
      */
     public function attemptLogin()

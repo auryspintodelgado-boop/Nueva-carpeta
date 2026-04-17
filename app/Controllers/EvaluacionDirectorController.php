@@ -49,7 +49,7 @@ class EvaluacionDirectorController extends BaseController
             return redirect()->to('/home')->with('error', 'Acceso denegado. Solo administradores y directores pueden evaluar.');
         }
 
-        if (!$usuario['departamento_id'] ?? null ?? null) {
+        if (!isset($usuario['departamento_id']) || $usuario['departamento_id'] === null) {
             return redirect()->to('/home')->with('error', 'No tiene un departamento asignado.');
         }
 
@@ -227,7 +227,7 @@ class EvaluacionDirectorController extends BaseController
         $usuario = $this->usuarioModel->find($userId);
         
         // Obtener departamento_id - para DIRECTOR viene del usuario, para ADMIN de la sesión o POST
-        $departamentoId = $usuario['departamento_id'] ?? null ?? null;
+        $departamentoId = $usuario['departamento_id'] ?? null;
         
         // Si es ADMIN, obtener de la sesión o del POST
         if (!$departamentoId) {

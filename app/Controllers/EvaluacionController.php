@@ -215,12 +215,65 @@ class EvaluacionController extends BaseController
     }
 
     /**
+     * Verifica que el usuario tenga acceso a la evaluación
+     * Los directores solo pueden acceder a evaluaciones de su departamento
+     */
+    private function verificarAccesoEvaluacion($evaluacionId)
+    {
+        $userId = session()->get('id');
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
+
+        $usuario = $this->usuarioModel->find($userId);
+        if (!$usuario) {
+            return redirect()->to('/login');
+        }
+
+        // ADMIN tiene acceso a todo
+        if ($usuario['rol'] === 'ADMIN') {
+            return true;
+        }
+
+        // DIRECTOR solo puede acceder a evaluaciones de su departamento
+        if ($usuario['rol'] === 'DIRECTOR') {
+            $departamentoId = $usuario['departamento_id'] ?? null;
+            if (!$departamentoId) {
+                return redirect()->to('/home')->with('error', 'No tiene un departamento asignado.');
+            }
+
+            // Obtener la evaluación
+            $evaluacion = $this->evaluacionModel->find($evaluacionId);
+            if (!$evaluacion) {
+                return redirect()->to('/evaluaciones')->with('error', 'Evaluación no encontrada');
+            }
+
+            // Verificar que la persona evaluada pertenece al departamento del director
+            $persona = $this->personaModel->find($evaluacion['persona_id']);
+            if (!$persona || $persona['departamento_id'] != $departamentoId) {
+                return redirect()->to('/evaluaciones/director')->with('error', 'No tiene permiso para ver esta evaluación.');
+            }
+
+            return true;
+        }
+
+        // Otros roles no tienen acceso
+        return redirect()->to('/home')->with('error', 'Acceso denegado.');
+    }
+
+    /**
      * Muestra una evaluación específica
      */
     public function show($id)
     {
+        // Verificar permisos de acceso
+        $accesoPermitido = $this->verificarAccesoEvaluacion($id);
+        if ($accesoPermitido !== true) {
+            return $accesoPermitido; // Retorna redirect si no tiene acceso
+        }
+
         $evaluacion = $this->evaluacionModel->find($id);
-        
+
         if (!$evaluacion) {
             return redirect()->to('/evaluaciones')->with('error', 'Evaluación no encontrada');
         }
@@ -241,8 +294,14 @@ class EvaluacionController extends BaseController
      */
     public function edit($id)
     {
+        // Verificar permisos de acceso
+        $accesoPermitido = $this->verificarAccesoEvaluacion($id);
+        if ($accesoPermitido !== true) {
+            return $accesoPermitido; // Retorna redirect si no tiene acceso
+        }
+
         $evaluacion = $this->evaluacionModel->find($id);
-        
+
         if (!$evaluacion) {
             return redirect()->to('/evaluaciones')->with('error', 'Evaluación no encontrada');
         }
@@ -263,6 +322,12 @@ class EvaluacionController extends BaseController
      */
     public function update($id)
     {
+        // Verificar permisos de acceso
+        $accesoPermitido = $this->verificarAccesoEvaluacion($id);
+        if ($accesoPermitido !== true) {
+            return $accesoPermitido; // Retorna redirect si no tiene acceso
+        }
+
         $rules = [
             'persona_id'       => 'required|is_natural_no_zero',
             'tipo_evaluacion' => 'required',
@@ -296,8 +361,14 @@ class EvaluacionController extends BaseController
      */
     public function delete($id)
     {
+        // Verificar permisos de acceso
+        $accesoPermitido = $this->verificarAccesoEvaluacion($id);
+        if ($accesoPermitido !== true) {
+            return $accesoPermitido; // Retorna redirect si no tiene acceso
+        }
+
         $evaluacion = $this->evaluacionModel->find($id);
-        
+
         if (!$evaluacion) {
             return redirect()->to('/evaluaciones')->with('error', 'Evaluación no encontrada');
         }
@@ -313,8 +384,29 @@ class EvaluacionController extends BaseController
      */
     public function empleadoDelMes()
     {
+        // Solo ADMIN puede seleccionar empleado del mes
+        $userId = session()->get('id');
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
+
+        $usuario = $this->usuarioModel->find($userId);
+        if (!$usuario || $usuario['rol'] !== 'ADMIN') {
+            // Debug: log session and user info
+            log_message('error', 'Access denied to empleado del mes. User ID: ' . $userId . ', Session: ' . json_encode(session()->get()) . ', User data: ' . json_encode($usuario));
+            return redirect()->to('/home')->with('error', 'Solo administradores pueden seleccionar empleado del mes.');
+        }
+
+        $mesSeleccionado = $this->request->getGet('mes') ?? date('Y-m');
+
+        $empleado_mes = $this->evaluacionModel->getEmpleadoDelMes($mesSeleccionado);
+        $candidatos = $this->evaluacionModel->getCandidatosEmpleadoDelMes($mesSeleccionado);
+
         $data = [
             'title' => 'Empleado del Mes',
+            'mes_seleccionado' => $mesSeleccionado,
+            'empleado_mes' => $empleado_mes,
+            'candidatos' => $candidatos,
         ];
 
         return view('evaluaciones/empleado_del_mes', $data);
@@ -325,9 +417,20 @@ class EvaluacionController extends BaseController
      */
     public function seleccionarEmpleadoDelMes($id)
     {
+        // Solo ADMIN puede seleccionar empleado del mes
+        $userId = session()->get('id');
+        if (!$userId) {
+            return redirect()->to('/login');
+        }
+
+        $usuario = $this->usuarioModel->find($userId);
+        if (!$usuario || $usuario['rol'] !== 'ADMIN') {
+            return redirect()->to('/home')->with('error', 'Solo administradores pueden seleccionar empleado del mes.');
+        }
+
         // Desmarcar anteriores
-        $this->evaluacionModel->where('es_empleado_mes', 'S')->update('S', ['es_empleado_mes' => 'N']);
-        
+        $this->evaluacionModel->where('es_empleado_mes', 'S')->update(null, ['es_empleado_mes' => 'N']);
+
         // Marcar nuevo
         $this->evaluacionModel->update($id, ['es_empleado_mes' => 'S']);
 

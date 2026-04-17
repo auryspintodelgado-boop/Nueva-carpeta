@@ -1,0 +1,133 @@
+ERROR - 2026-04-17 04:13:19 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'aurys' in E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'aurys', 3306, '', 0)
+#1 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#5 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 E:\Enb\RRHH\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#10 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#11 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#12 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 E:\Enb\RRHH\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'aurys' in E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#4 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 E:\Enb\RRHH\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#9 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#10 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#11 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#13 E:\Enb\RRHH\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-04-17 04:14:55 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'aurys' in E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'aurys', 3306, '', 0)
+#1 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#5 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 E:\Enb\RRHH\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#10 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#11 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#12 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 E:\Enb\RRHH\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'aurys' in E:\Enb\RRHH\Nueva-carpeta\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 E:\Enb\RRHH\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#4 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 E:\Enb\RRHH\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 E:\Enb\RRHH\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 E:\Enb\RRHH\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#9 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#10 E:\Enb\RRHH\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#11 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 E:\Enb\RRHH\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#13 E:\Enb\RRHH\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2026-04-17 04:22:06 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('E:\\Enb\\RRHH\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-17 04:26:39 --> ErrorException: Undefined variable $empleado_mes
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 22.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $empleado_mes', 'E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 22)
+ 2 SYSTEMPATH\View\View.php(238): include('E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(323): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('E:\\Enb\\RRHH\\Nueva-carpeta\\public\\index.php')
+ERROR - 2026-04-17 11:22:20 --> Duplicate entry 'evaluador' for key 'username'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'evaluador\', \'evaluador@aurys.com\', \'$2y$10$SuROfPuL1X5xXwKYGUxonOpa4II.Ksg/LvTsHGqYSnMZua4HeeeY6\', \'Evaluador General\', \'EVALUADOR\', NULL, \'ACTIVO\', \'2026-04-17 11:22:20\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'evaluador\', \'evaluador@aurys.com\', \'$2y$10$SuROfPuL1X5xXwKYGUxonOpa4II.Ksg/LvTsHGqYSnMZua4HeeeY6\', \'Evaluador General\', \'EVALUADOR\', NULL, \'ACTIVO\', \'2026-04-17 11:22:20\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'evaluador\', \'evaluador@aurys.com\', \'$2y$10$SuROfPuL1X5xXwKYGUxonOpa4II.Ksg/LvTsHGqYSnMZua4HeeeY6\', \'Evaluador General\', \'EVALUADOR\', NULL, \'ACTIVO\', \'2026-04-17 11:22:20\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (:username:, :email:, :password:, :nombre_completo:, :rol:, :departamento_id:, :estado:, :created_at:)', [...], false)
+ 5 APPPATH\Database\Seeds\TestDataSeeder.php(158): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Database\Seeds\TestDataSeeder.php(27): App\Database\Seeds\TestDataSeeder->crearEvaluadores()
+ 7 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\TestDataSeeder->run()
+ 8 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\TestDataSeeder')
+ 9 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([...])
+10 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+11 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+12 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+13 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-04-17 11:22:38 --> ErrorException: Undefined variable $empleado_mes
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 22.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $empleado_mes', 'E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 22)
+ 2 SYSTEMPATH\View\View.php(238): include('E:\\Enb\\RRHH\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(405): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('E:\\Enb\\RRHH\\Nueva-carpeta\\public\\index.php')
+ERROR - 2026-04-17 11:29:19 --> Access denied to empleado del mes. User ID: 1, Session: {"__ci_last_regenerate":1776425355,"_ci_previous_url":"http:\/\/localhost:8081\/index.php\/home","id":"1","username":"admin","nombre_completo":"Administrador","rol":"ADMIN","departamento_id":null,"isLoggedIn":true}, User data: {"id":"1","username":"director","email":"director@aurys.com","password":"$2y$10$yja0vrvyAjDpDShw7u6B4evwQPw9QHHBzHutuHZr9omRmv6oCoOYS","nombre_completo":"Director de RRHH","rol":"","estado":"ACTIVO","departamento_id":"1","two_factor_enabled":"N","two_factor_code":null,"two_factor_expires":null,"reset_token":null,"reset_expires":null,"password_changed_at":null,"failed_login_attempts":"0","locked_until":null,"ultimo_login":null,"created_at":"2026-04-17 11:22:47","updated_at":null}

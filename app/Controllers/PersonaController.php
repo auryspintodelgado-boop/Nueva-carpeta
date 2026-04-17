@@ -229,7 +229,8 @@ class PersonaController extends BaseController
             'correo_electronico' => 'valid_email',
         ];
 
-        if ($cedulaActual !== $persona['cedula']) {
+        // Solo validar unicidad de cédula si realmente cambió
+        if (!empty($cedulaActual) && $cedulaActual !== $persona['cedula']) {
             $rules['cedula'] = 'required|is_unique[personas.cedula]';
         }
 
@@ -244,6 +245,11 @@ class PersonaController extends BaseController
         // Convertir cadena vacía a null para departamento_id
         if (isset($data['departamento_id']) && $data['departamento_id'] === '') {
             $data['departamento_id'] = null;
+        }
+
+        // Asegurar que departamento_id sea un integer si no es null
+        if (isset($data['departamento_id']) && $data['departamento_id'] !== null) {
+            $data['departamento_id'] = (int) $data['departamento_id'];
         }
 
         // Asegurarse de que estado_registro tenga un valor válido
@@ -280,7 +286,7 @@ class PersonaController extends BaseController
         // Eliminar campos de foto del array de datos
         unset($data['eliminar_foto']);
 
-        $this->personaModel->update($id, $data);
+        $result = $this->personaModel->update($id, $data);
 
         return redirect()->to('/personas/show/' . $id)
             ->with('success', 'Persona actualizada exitosamente');

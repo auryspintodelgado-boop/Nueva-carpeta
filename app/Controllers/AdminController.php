@@ -227,6 +227,13 @@ class AdminController extends BaseController
         ];
 
         if ($this->request->getMethod() === 'POST') {
+            $codigo = strtoupper($this->request->getPost('codigo'));
+
+            // Verificar si el código ya existe
+            if ($this->departamentoModel->codigoExists($codigo)) {
+                return view('admin/crear_departamento', $data)->with('errors', ['codigo' => 'El código ya existe.']);
+            }
+
             $rules = [
                 'nombre' => 'required|min_length[2]|max_length[100]',
                 'codigo' => 'required|min_length[2]|max_length[20]',
@@ -239,7 +246,7 @@ class AdminController extends BaseController
             $this->departamentoModel->insert([
                 'nombre' => $this->request->getPost('nombre'),
                 'descripcion' => $this->request->getPost('descripcion'),
-                'codigo' => $this->request->getPost('codigo'),
+                'codigo' => $codigo,
                 'estado' => 'ACTIVO',
             ]);
 
@@ -268,6 +275,13 @@ class AdminController extends BaseController
         ];
 
         if ($this->request->getMethod() === 'POST') {
+            $codigo = strtoupper($this->request->getPost('codigo'));
+
+            // Verificar si el código ya existe (excluyendo el departamento actual)
+            if ($this->departamentoModel->codigoExists($codigo, $id)) {
+                return view('admin/editar_departamento', $data)->with('errors', ['codigo' => 'El código ya existe.']);
+            }
+
             $rules = [
                 'nombre' => 'required|min_length[2]|max_length[100]',
                 'codigo' => 'required|min_length[2]|max_length[20]',
@@ -280,7 +294,7 @@ class AdminController extends BaseController
             $this->departamentoModel->update($id, [
                 'nombre' => $this->request->getPost('nombre'),
                 'descripcion' => $this->request->getPost('descripcion'),
-                'codigo' => $this->request->getPost('codigo'),
+                'codigo' => $codigo,
                 'estado' => $this->request->getPost('estado'),
             ]);
 

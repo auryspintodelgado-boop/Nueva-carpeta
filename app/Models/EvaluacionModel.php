@@ -138,8 +138,10 @@ class EvaluacionModel extends Model
             $mes = date('Y-m');
         }
 
-        return $this->where('mes_evaluado', $mes)
-                    ->where('es_empleado_mes', 'S')
+        return $this->select('evaluaciones.*, personas.primer_nombre, personas.primer_apellido, personas.cedula')
+                    ->join('personas', 'personas.id = evaluaciones.persona_id')
+                    ->where('evaluaciones.mes_evaluado', $mes)
+                    ->where('evaluaciones.es_empleado_mes', 'S')
                     ->first();
     }
 

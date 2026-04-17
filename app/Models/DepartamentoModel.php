@@ -45,4 +45,27 @@ class DepartamentoModel extends Model
     {
         return $this->truncate();
     }
+
+    /**
+     * Verifica si el código ya existe
+     */
+    public function codigoExists($codigo, $excludeId = null)
+    {
+        $builder = $this->where('codigo', strtoupper($codigo));
+        if ($excludeId) {
+            $builder->where('id !=', $excludeId);
+        }
+        return $builder->countAllResults() > 0;
+    }
+
+    /**
+     * Obtiene departamentos para selects (solo activos)
+     */
+    public function getListaDepartamentos()
+    {
+        return $this->select('id, nombre, codigo')
+                    ->where('estado', 'ACTIVO')
+                    ->orderBy('nombre', 'ASC')
+                    ->findAll();
+    }
 }

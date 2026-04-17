@@ -3,6 +3,10 @@
 <?= $this->section('content') ?>
 <div class="py-4">
     <h2 class="mb-4">Dashboard</h2>
+
+    <div class="alert alert-info">
+        <strong>Usuario actual:</strong> <?= session()->get('nombre_completo') ?> (<?= session()->get('username') ?>) - <strong>Rol:</strong> <?= session()->get('rol') ?> - <strong>ID:</strong> <?= session()->get('id') ?>
+    </div>
     
     <div class="row mb-4">
         <div class="col-md-3">

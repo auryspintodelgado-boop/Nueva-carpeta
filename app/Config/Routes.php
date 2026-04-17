@@ -16,9 +16,11 @@ $routes->post('/login', 'AuthController::attemptLogin');
 $routes->get('/logout', 'AuthController::logout');
 $routes->get('/register', 'AuthController::register');
 $routes->post('/register', 'AuthController::attemptRegister');
+$routes->get('/debug-session', 'AuthController::debugSession');
 
 // Dashboard
 $routes->get('/dashboard', 'HomeController::dashboard');
+$routes->get('/home', 'HomeController::dashboard');
 
 // Rutas de Personas
 $routes->get('/personas', 'PersonaController::index');
@@ -99,3 +101,6 @@ $routes->post('/admin/departamentos/crear', 'AdminController::crearDepartamento'
 $routes->get('/admin/departamentos/editar/(:num)', 'AdminController::editarDepartamento/$1');
 $routes->post('/admin/departamentos/editar/(:num)', 'AdminController::editarDepartamento/$1');
 $routes->get('/admin/departamentos/eliminar/(:num)', 'AdminController::eliminarDepartamento/$1');
+
+// Ruta temporal para testing
+$routes->get('/test/update', 'TestController::testUpdate');
