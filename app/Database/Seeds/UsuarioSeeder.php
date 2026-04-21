@@ -11,10 +11,11 @@ class UsuarioSeeder extends Seeder
         $data = [
             'username'       => 'admin',
             'email'         => 'admin@aurys.com',
-            'password'      => password_hash('admin123', PASSWORD_DEFAULT),
-            'nombre_completo' => 'Administrador',
+            'password'      => password_hash('Admin123!', PASSWORD_DEFAULT),
+            'nombre_completo' => 'Administrador del Sistema',
             'rol'           => 'ADMIN',
             'estado'        => 'ACTIVO',
+            'password_changed_at' => date('Y-m-d H:i:s'),
             'created_at'    => date('Y-m-d H:i:s'),
         ];
 

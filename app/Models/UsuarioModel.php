@@ -28,6 +28,7 @@ class UsuarioModel extends Model
         'password_changed_at',
         'failed_login_attempts',
         'locked_until',
+        'force_password_change',
     ];
 
     protected $useTimestamps = true;
@@ -39,7 +40,7 @@ class UsuarioModel extends Model
     protected $validationRules = [
         'username' => 'required|min_length[3]|max_length[50]|is_unique[usuarios.username]',
         'email'    => 'required|valid_email|is_unique[usuarios.email]',
-        'password' => 'required|min_length[6]',
+        'password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/]',
         'rol'      => 'required|in_list[ADMIN,EVALUADOR,DIRECTOR,CONSULTA]',
     ];
 

@@ -5,18 +5,21 @@ namespace App\Controllers;
 use App\Models\UsuarioModel;
 use App\Models\DepartamentoModel;
 use App\Models\PersonaModel;
+use App\Models\AuditLogModel;
 
 class AdminController extends BaseController
 {
     protected $usuarioModel;
     protected $departamentoModel;
     protected $personaModel;
+    protected $auditLogModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
         $this->departamentoModel = new DepartamentoModel();
         $this->personaModel = new PersonaModel();
+        $this->auditLogModel = new AuditLogModel();
         helper(['form', 'session']);
     }
 
@@ -109,7 +112,19 @@ class AdminController extends BaseController
                 'rol' => $this->request->getPost('rol'),
                 'departamento_id' => $this->request->getPost('departamento_id') ?: null,
                 'estado' => 'ACTIVO',
+                'force_password_change' => 'S',
             ]);
+
+            // Audit log
+            $newUser = $this->usuarioModel->where('username', $this->request->getPost('username'))->first();
+            $this->auditLogModel->log(
+                session()->get('id'),
+                'CREATE',
+                'usuarios',
+                $newUser['id'],
+                null,
+                ['username' => $this->request->getPost('username'), 'rol' => $this->request->getPost('rol')]
+            );
 
             return redirect()->to('/admin/usuarios')->with('success', 'Usuario creado exitosamente.');
         }
@@ -167,6 +182,16 @@ class AdminController extends BaseController
             }
 
             $this->usuarioModel->update($id, $updateData);
+
+            // Audit log
+            $this->auditLogModel->log(
+                session()->get('id'),
+                'UPDATE',
+                'usuarios',
+                $id,
+                $usuario,
+                $updateData
+            );
 
             return redirect()->to('/admin/usuarios')->with('success', 'Usuario actualizado exitosamente.');
         }

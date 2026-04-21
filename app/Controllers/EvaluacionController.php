@@ -379,12 +379,11 @@ class EvaluacionController extends BaseController
             ->with('success', 'Evaluación eliminada exitosamente');
     }
 
-    /**
+/**
      * Muestra la página de empleado del mes
      */
     public function empleadoDelMes()
     {
-        // Solo ADMIN puede seleccionar empleado del mes
         $userId = session()->get('id');
         if (!$userId) {
             return redirect()->to('/login');
@@ -392,19 +391,17 @@ class EvaluacionController extends BaseController
 
         $usuario = $this->usuarioModel->find($userId);
         if (!$usuario || $usuario['rol'] !== 'ADMIN') {
-            // Debug: log session and user info
-            log_message('error', 'Access denied to empleado del mes. User ID: ' . $userId . ', Session: ' . json_encode(session()->get()) . ', User data: ' . json_encode($usuario));
             return redirect()->to('/home')->with('error', 'Solo administradores pueden seleccionar empleado del mes.');
         }
 
-        $mesSeleccionado = $this->request->getGet('mes') ?? date('Y-m');
+        $mes_seleccionado = $this->request->getGet('mes') ?? date('Y-m');
 
-        $empleado_mes = $this->evaluacionModel->getEmpleadoDelMes($mesSeleccionado);
-        $candidatos = $this->evaluacionModel->getCandidatosEmpleadoDelMes($mesSeleccionado);
+        $empleado_mes = $this->evaluacionModel->getEmpleadoDelMes($mes_seleccionado);
+        $candidatos = $this->evaluacionModel->getCandidatosEmpleadoDelMes($mes_seleccionado);
 
         $data = [
             'title' => 'Empleado del Mes',
-            'mes_seleccionado' => $mesSeleccionado,
+            'mes_seleccionado' => $mes_seleccionado,
             'empleado_mes' => $empleado_mes,
             'candidatos' => $candidatos,
         ];

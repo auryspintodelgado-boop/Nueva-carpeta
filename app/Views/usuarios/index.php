@@ -38,6 +38,7 @@ $active = 'usuarios';
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET" action="/usuarios" class="row g-3">
+            <?= csrf_field() ?>
             <div class="col-md-4">
                 <input type="text" name="search" class="form-control" placeholder="Buscar..." value="<?php echo htmlspecialchars($search ?? ''); ?>">
             </div>

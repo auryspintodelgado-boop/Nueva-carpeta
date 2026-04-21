@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\UsuarioModel;
+use App\Models\AuditLogModel;
 
 class AuthController extends BaseController
 {
     protected $usuarioModel;
+    protected $auditLogModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
+        $this->auditLogModel = new AuditLogModel();
         helper(['form', 'session']);
     }
 
@@ -117,6 +120,20 @@ class AuthController extends BaseController
                 'isLoggedIn'        => true,
             ]);
 
+            // Registrar login en audit log
+            $this->auditLogModel->log(
+                $usuario['id'],
+                'LOGIN',
+                'usuarios',
+                $usuario['id']
+            );
+
+            // Verificar si debe cambiar contraseña
+            if (isset($usuario['force_password_change']) && $usuario['force_password_change'] === 'S') {
+                return redirect()->to('/security/change-password')
+                    ->with('warning', 'Debe cambiar su contraseña antes de continuar.');
+            }
+
             return redirect()->to('/dashboard')
                 ->with('success', 'Bienvenido, ' . $usuario['username']);
         }
@@ -167,7 +184,7 @@ class AuthController extends BaseController
         $rules = [
             'username'              => 'required|min_length[3]|max_length[50]|is_unique[usuarios.username]',
             'email'                 => 'required|valid_email|is_unique[usuarios.email]',
-            'password'              => 'required|min_length[6]',
+            'password'              => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/]',
             'password_confirmation' => 'required|matches[password]',
         ];
 
@@ -184,6 +201,8 @@ class AuthController extends BaseController
             'nombre_completo' => $this->request->getPost('nombre_completo') ?? '',
             'rol'           => 'CONSULTA',
             'estado'        => 'ACTIVO',
+            'password_changed_at' => date('Y-m-d H:i:s'),
+            'force_password_change' => 'S',
         ];
 
         $this->usuarioModel->insert($data);

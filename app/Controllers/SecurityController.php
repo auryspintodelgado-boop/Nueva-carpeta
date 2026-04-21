@@ -3,17 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\UsuarioModel;
+use App\Models\AuditLogModel;
 use CodeIgniter\Session\Session;
 
 class SecurityController extends BaseController
 {
     protected $usuarioModel;
+    protected $auditLogModel;
     protected $maxAttempts = 5;
     protected $lockoutMinutes = 15;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
+        $this->auditLogModel = new AuditLogModel();
     }
 
     /**
@@ -356,7 +359,16 @@ class SecurityController extends BaseController
         $this->usuarioModel->update($userId, [
             'password'           => password_hash($newPassword, PASSWORD_DEFAULT),
             'password_changed_at' => date('Y-m-d H:i:s'),
+            'force_password_change' => 'N',
         ]);
+
+        // Audit log
+        $this->auditLogModel->log(
+            $userId,
+            'PASSWORD_CHANGE',
+            'usuarios',
+            $userId
+        );
 
         return redirect()->to('/perfil')
             ->with('success', 'Contraseña actualizada correctamente');

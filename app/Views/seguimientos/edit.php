@@ -18,6 +18,7 @@ $data = $data ?? $seguimiento;
 </div>
 
 <form method="POST" action="/seguimientos/update/<?= htmlspecialchars($seguimiento['id'] ?? '') ?>">
+    <?= csrf_field() ?>
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
             <h5 class="mb-0"><i class="bi bi-journal-text"></i> Datos del Seguimiento</h5>

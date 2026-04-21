@@ -36,8 +36,14 @@ class CreateUsuariosTable extends Migration
             ],
             'rol' => [
                 'type'       => 'ENUM',
-                'constraint' => ['ADMIN', 'EVALUADOR', 'CONSULTA'],
+                'constraint' => ['ADMIN', 'EVALUADOR', 'DIRECTOR', 'CONSULTA'],
                 'default'    => 'CONSULTA',
+            ],
+            'departamento_id' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => true,
+                'unsigned'   => true,
             ],
             'estado' => [
                 'type'       => 'ENUM',
@@ -45,6 +51,42 @@ class CreateUsuariosTable extends Migration
                 'default'    => 'ACTIVO',
             ],
             'ultimo_login' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'two_factor_enabled' => [
+                'type'       => 'ENUM',
+                'constraint' => ['S', 'N'],
+                'default'    => 'N',
+            ],
+            'two_factor_code' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 6,
+                'null'       => true,
+            ],
+            'two_factor_expires' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'reset_token' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 64,
+                'null'       => true,
+            ],
+            'reset_expires' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'password_changed_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'failed_login_attempts' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'default'    => 0,
+            ],
+            'locked_until' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
@@ -59,6 +101,7 @@ class CreateUsuariosTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('departamento_id', 'departamentos', 'id', 'SET NULL', 'SET NULL');
         $this->forge->createTable('usuarios');
     }
 

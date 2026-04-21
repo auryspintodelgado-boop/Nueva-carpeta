@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\SessionTimeout;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -34,6 +35,7 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'sessiontimeout' => SessionTimeout::class,
     ];
 
     /**
@@ -72,9 +74,8 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'csrf',
+            'sessiontimeout',
         ],
         'after' => [
             // 'honeypot',
@@ -95,7 +96,11 @@ class Filters extends BaseFilters
      *
      * @var array<string, list<string>>
      */
-    public array $methods = [];
+    public array $methods = [
+        'post' => ['csrf'],
+        'put' => ['csrf'],
+        'delete' => ['csrf'],
+    ];
 
     /**
      * List of filter aliases that should run on any

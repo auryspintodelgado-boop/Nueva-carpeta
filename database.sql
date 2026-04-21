@@ -1,6 +1,6 @@
 -- =====================================================
 -- AURYS - Sistema de Gestión de Recursos Humanos
--- Database Schema
+-- Database Schema (Compatible con Migraciones CI4)
 -- =====================================================
 
 -- Create database
@@ -8,123 +8,126 @@ CREATE DATABASE IF NOT EXISTS aurys_hr DEFAULT CHARACTER SET utf8mb4 COLLATE utf
 USE aurys_hr;
 
 -- =====================================================
--- TABLE: users
+-- TABLE: usuarios
 -- =====================================================
-CREATE TABLE IF NOT EXISTS users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'director', 'employee') NOT NULL DEFAULT 'employee',
-    status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    nombre_completo VARCHAR(100),
+    rol ENUM('ADMIN', 'EVALUADOR', 'DIRECTOR', 'CONSULTA') DEFAULT 'CONSULTA',
+    departamento_id INT UNSIGNED,
+    estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
+    ultimo_login DATETIME,
+    two_factor_enabled ENUM('S', 'N') DEFAULT 'N',
+    two_factor_code VARCHAR(6),
+    two_factor_expires DATETIME,
+    reset_token VARCHAR(64),
+    reset_expires DATETIME,
+    password_changed_at DATETIME,
+    failed_login_attempts INT DEFAULT 0,
+    locked_until DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_username (username),
-    INDEX idx_role (role),
-    INDEX idx_status (status)
+    INDEX idx_email (email),
+    INDEX idx_rol (rol),
+    INDEX idx_estado (estado),
+    INDEX idx_departamento (departamento_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
--- TABLE: departments
+-- TABLE: departamentos
 -- =====================================================
-CREATE TABLE IF NOT EXISTS departments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    director_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_name (name),
+CREATE TABLE IF NOT EXISTS departamentos (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    director_id INT UNSIGNED,
+    estado ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_nombre (nombre),
     INDEX idx_director (director_id),
-    FOREIGN KEY (director_id) REFERENCES users(id) ON DELETE SET NULL
+    INDEX idx_estado (estado),
+    FOREIGN KEY (director_id) REFERENCES usuarios(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
--- TABLE: employees
+-- TABLE: personas
 -- =====================================================
-CREATE TABLE IF NOT EXISTS employees (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT UNIQUE NOT NULL,
-    department_id INT,
-    -- Identificación
+CREATE TABLE IF NOT EXISTS personas (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     numero INT,
     nacionalidad VARCHAR(50),
     cedula VARCHAR(20) UNIQUE,
-    primer_nombre VARCHAR(50),
+    primer_nombre VARCHAR(50) NOT NULL,
     segundo_nombre VARCHAR(50),
-    primer_apellido VARCHAR(50),
+    primer_apellido VARCHAR(50) NOT NULL,
     segundo_apellido VARCHAR(50),
     sexo ENUM('M', 'F'),
     fecha_nacimiento DATE,
     edad INT,
     telefono1 VARCHAR(20),
+    telefono2 VARCHAR(20),
     correo_electronico VARCHAR(100),
-    -- Educación
     carrera VARCHAR(100),
     ano_semestre VARCHAR(20),
-    posee_beca ENUM('SI', 'NO'),
+    posee_beca ENUM('SI', 'NO') DEFAULT 'NO',
     sede VARCHAR(100),
     estado VARCHAR(50),
     siglas_universidad VARCHAR(20),
     tipo_ieu ENUM('PUBLICA', 'PRIVADA'),
-    pregrado_postgrado ENUM('PREGRADO', 'POSTGRADO'),
-    -- Dirección
+    nivel_academico VARCHAR(50),
     urbanismo VARCHAR(100),
     municipio VARCHAR(50),
     parroquia VARCHAR(50),
-    -- Familia
-    tiene_hijos ENUM('SI', 'NO'),
-    cantidad_hijos INT,
-    carga_familiar INT,
-    estado_civil ENUM('CASADO', 'SOLTERO'),
-    -- Discapacidad
-    posee_discapacidad ENUM('SI', 'NO'),
-    describe_discapacidad TEXT,
-    -- Salud
-    presenta_enfermedad ENUM('SI', 'NO'),
+    tiene_hijos ENUM('SI', 'NO') DEFAULT 'NO',
+    cantidad_hijos INT DEFAULT 0,
+    posee_discapacidad ENUM('SI', 'NO') DEFAULT 'NO',
+    descripcion_discapacidad TEXT,
+    presenta_enfermedad ENUM('SI', 'NO') DEFAULT 'NO',
     condicion_medica TEXT,
     medicamentos TEXT,
-    -- Empleo
-    trabaja ENUM('SI', 'NO'),
+    trabaja ENUM('SI', 'NO') DEFAULT 'NO',
     tipo_empleo VARCHAR(50),
     medio_transporte VARCHAR(50),
-    -- CNE
-    inscrito_cne ENUM('SI', 'NO'),
+    inscrito_cne ENUM('SI', 'NO') DEFAULT 'NO',
     centro_electoral VARCHAR(100),
     comuna VARCHAR(50),
-    -- Medidas
+    estado_civil VARCHAR(20),
     talla_camisa VARCHAR(10),
     talla_zapatos VARCHAR(10),
     talla_pantalon VARCHAR(10),
     altura DECIMAL(4,2),
     peso DECIMAL(5,2),
     tipo_sangre VARCHAR(5),
-    -- Fotos
-    foto_perfil VARCHAR(255),
-    -- Estado de verificación
-    characterization_status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending',
-    verified_by INT,
-    verified_at TIMESTAMP NULL,
-    rejection_reason TEXT,
-    -- Timestamps
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_user_id (user_id),
-    INDEX idx_department (department_id),
+    carga_familiar INT DEFAULT 0,
+    fotos JSON,
+    foto VARCHAR(255),
+    observaciones TEXT,
+    departamento_id INT UNSIGNED,
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    estado_registro ENUM('ACTIVO', 'INACTIVO') DEFAULT 'ACTIVO',
+    usuario_registro INT UNSIGNED,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_cedula (cedula),
-    INDEX idx_status (characterization_status),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL,
-    FOREIGN KEY (verified_by) REFERENCES users(id) ON DELETE SET NULL
+    INDEX idx_departamento (departamento_id),
+    INDEX idx_estado (estado_registro),
+    INDEX idx_nombre (primer_nombre, primer_apellido),
+    FOREIGN KEY (departamento_id) REFERENCES departamentos(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
--- TABLE: evaluations
+-- TABLE: evaluaciones
 -- =====================================================
-CREATE TABLE IF NOT EXISTS evaluations (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    employee_id INT NOT NULL,
-    evaluator_id INT NOT NULL,
-    evaluation_date DATE NOT NULL,
+CREATE TABLE IF NOT EXISTS evaluaciones (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    persona_id INT UNSIGNED NOT NULL,
+    evaluador_id INT UNSIGNED NOT NULL,
+    fecha_evaluacion DATE NOT NULL,
     mes VARCHAR(20) NOT NULL,
     ano YEAR NOT NULL,
     -- Área 1: Orientación de Resultados
@@ -162,26 +165,53 @@ CREATE TABLE IF NOT EXISTS evaluations (
     employee_signature TINYINT DEFAULT 0,
     evaluator_signature TINYINT DEFAULT 0,
     -- Timestamps
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_employee (employee_id),
-    INDEX idx_evaluator (evaluator_id),
-    INDEX idx_date (evaluation_date),
-    INDEX idx_period (mes, ano),
-    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
-    FOREIGN KEY (evaluator_id) REFERENCES users(id) ON DELETE CASCADE
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_persona (persona_id),
+    INDEX idx_evaluador (evaluador_id),
+    INDEX idx_fecha (fecha_evaluacion),
+    INDEX idx_periodo (mes, ano),
+    FOREIGN KEY (persona_id) REFERENCES personas(id) ON DELETE CASCADE,
+    FOREIGN KEY (evaluador_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================
--- Insert default admin user (password: admin123)
+-- TABLE: seguimientos
 -- =====================================================
-INSERT INTO users (username, password, role, status) 
-VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'active');
+CREATE TABLE IF NOT EXISTS seguimientos (
+    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    persona_id INT UNSIGNED NOT NULL,
+    usuario_id INT UNSIGNED NOT NULL,
+    titulo VARCHAR(150) NOT NULL,
+    descripcion TEXT,
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    prioridad ENUM('BAJA', 'MEDIA', 'ALTA') DEFAULT 'MEDIA',
+    estado ENUM('PENDIENTE', 'EN_PROCESO', 'COMPLETADO', 'CANCELADO') DEFAULT 'PENDIENTE',
+    recordatorio_fecha DATE,
+    recordatorio_enviado TINYINT DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_persona (persona_id),
+    INDEX idx_usuario (usuario_id),
+    INDEX idx_estado (estado),
+    INDEX idx_fecha_inicio (fecha_inicio),
+    INDEX idx_fecha_fin (fecha_fin),
+    FOREIGN KEY (persona_id) REFERENCES personas(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- =====================================================
+-- Insert default admin user
+-- Password: Admin123! (debe cambiarse en primer login)
+-- =====================================================
+INSERT INTO usuarios (username, email, password, nombre_completo, rol, estado) 
+VALUES ('admin', 'admin@aurys.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrador del Sistema', 'ADMIN', 'ACTIVO');
 
 -- =====================================================
 -- Sample departments
 -- =====================================================
-INSERT INTO departments (name, description) VALUES
+INSERT INTO departamentos (nombre, descripcion) VALUES
 ('Guías', 'Departamento de guías turísticos'),
 ('Administración', 'Departamento de administración general'),
 ('Recursos Humanos', 'Departamento de gestión de personal'),

@@ -104,11 +104,15 @@ class PersonaController extends BaseController
      */
     public function store()
     {
+        $cedula = $this->request->getPost('cedula');
+        $telefono = $this->request->getPost('telefono1');
+        
         $rules = [
-            'cedula'            => 'required|is_unique[personas.cedula]',
-            'primer_nombre'     => 'required|min_length[2]|max_length[50]',
-            'primer_apellido'   => 'required|min_length[2]|max_length[50]',
-            'correo_electronico' => 'valid_email',
+            'cedula'            => 'required|regex_match[/^[VE]-[0-9]{6,9}$/]|is_unique[personas.cedula]',
+            'primer_nombre'     => 'required|min_length[2]|max_length[50]|regex_match[/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/]',
+            'primer_apellido'   => 'required|min_length[2]|max_length[50]|regex_match[/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/]',
+            'correo_electronico' => 'permit_empty|valid_email',
+            'telefono1'         => 'permit_empty|regex_match[/^[0-9]{11}$/]',
         ];
 
         if (!$this->validate($rules)) {
@@ -224,14 +228,16 @@ class PersonaController extends BaseController
 
         $cedulaActual = $this->request->getPost('cedula');
         $rules = [
-            'primer_nombre'     => 'required|min_length[2]|max_length[50]',
-            'primer_apellido'  => 'required|min_length[2]|max_length[50]',
-            'correo_electronico' => 'valid_email',
+            'primer_nombre'     => 'required|min_length[2]|max_length[50]|regex_match[/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/]',
+            'primer_apellido'   => 'required|min_length[2]|max_length[50]|regex_match[/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/]',
+            'correo_electronico' => 'permit_empty|valid_email',
+            'telefono1'         => 'permit_empty|regex_match[/^[0-9]{11}$/]',
         ];
 
-        // Solo validar unicidad de cédula si realmente cambió
-        if (!empty($cedulaActual) && $cedulaActual !== $persona['cedula']) {
-            $rules['cedula'] = 'required|is_unique[personas.cedula]';
+if ($cedulaActual !== $persona['cedula']) {
+            $rules['cedula'] = 'required|regex_match[/^[VE]-[0-9]{6,9}$/]|is_unique[personas.cedula]';
+        } else {
+            $rules['cedula'] = 'required';
         }
 
         if (!$this->validate($rules)) {
