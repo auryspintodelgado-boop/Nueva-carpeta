@@ -1,0 +1,40 @@
+{
+    "main_window_title": "Sistema Fundación Castillo San Antonio",
+    "window_size": [1280, 720],
+    "start_maximized": true,
+    "enable_debugging": false,
+    "cache_path": "cache",
+    "log_file": "debug.log",
+    "log_level": 0,
+
+    "browser": {
+        "default_url": "http://localhost:20000",
+        "context_menu": true,
+        "javascript_dialogs": false,
+        "allow_popup_windows": true
+    },
+
+    "web_server": {
+        "listen_on": ["127.0.0.1", 20000],
+        "document_root": "www/public",
+        "index_files": ["index.php", "index.html"],
+        "cgi_interpreter": "php/php-cgi.exe",
+        "cgi_extensions": ["php"],
+        "cgi_environment": {
+            "PHP_INI_SCAN_DIR": "./php"
+        },
+        "hide_console_window": true,
+        "router_script": "www/public/index.php"
+    },
+
+    "chrome": {
+        "command_line_switches": [
+            "disable-gpu",
+            "disable-software-rasterizer",
+            "disable-extensions",
+            "no-sandbox",
+            "disable-plugins"
+        ],
+        "runtime_style": "alloy"
+    }
+}

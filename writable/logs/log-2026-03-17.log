@@ -1,0 +1,84 @@
+CRITICAL - 2026-03-17 13:28:53 --> ErrorException: Undefined variable $persona_id
+[Method: GET, Route: evaluaciones/create]
+in APPPATH\Views\evaluaciones\create.php on line 7.
+ 1 APPPATH\Views\evaluaciones\create.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $persona_id', 'C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\create.php', 7)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\create.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/create', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(111): view('evaluaciones/create')
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->create()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\aurys\\public\\index.php')
+ERROR - 2026-03-17 13:48:18 --> Duplicate entry 'director' for key 'username'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'director\', \'director@aurys.com\', \'$2y$10$gT5bTU/h8lDtbLNiNrs0FOpQTRX1vuchUuCnHOyIyu/sSRNCsNqii\', \'Director de RRHH\', \'DIRECTOR\', 7, \'ACTIVO\', \'2026-03-17 13:48:18\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'director\', \'director@aurys.com\', \'$2y$10$gT5bTU/h8lDtbLNiNrs0FOpQTRX1vuchUuCnHOyIyu/sSRNCsNqii\', \'Director de RRHH\', \'DIRECTOR\', 7, \'ACTIVO\', \'2026-03-17 13:48:18\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (\'director\', \'director@aurys.com\', \'$2y$10$gT5bTU/h8lDtbLNiNrs0FOpQTRX1vuchUuCnHOyIyu/sSRNCsNqii\', \'Director de RRHH\', \'DIRECTOR\', 7, \'ACTIVO\', \'2026-03-17 13:48:18\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `departamento_id`, `estado`, `created_at`) VALUES (:username:, :email:, :password:, :nombre_completo:, :rol:, :departamento_id:, :estado:, :created_at:)', [...], false)
+ 5 APPPATH\Database\Seeds\DirectorUsuarioSeeder.php(35): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\DirectorUsuarioSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\DirectorUsuarioSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-03-17 13:49:26 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(319): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\aurys\\public\\index.php')
+CRITICAL - 2026-03-17 13:53:17 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\xampp\\htdocs\\aurys\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(319): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\aurys\\public\\index.php')
+ERROR - 2026-03-17 14:17:14 --> Duplicate entry 'admin' for key 'username'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$jTod0/gppThAYovCZIPzP.IA/jYGo36A6If9w73p3gotC1eGGdCY6\', \'Administrador\', \'ADMIN\', \'ACTIVO\', \'2026-03-17 14:17:14\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$jTod0/gppThAYovCZIPzP.IA/jYGo36A6If9w73p3gotC1eGGdCY6\', \'Administrador\', \'ADMIN\', \'ACTIVO\', \'2026-03-17 14:17:14\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$jTod0/gppThAYovCZIPzP.IA/jYGo36A6If9w73p3gotC1eGGdCY6\', \'Administrador\', \'ADMIN\', \'ACTIVO\', \'2026-03-17 14:17:14\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `created_at`) VALUES (:username:, :email:, :password:, :nombre_completo:, :rol:, :estado:, :created_at:)', [...], false)
+ 5 APPPATH\Database\Seeds\UsuarioSeeder.php(21): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\UsuarioSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\UsuarioSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-03-17 14:40:22 --> ErrorException: Undefined array key "departamento_id"
+[Method: POST, Route: evaluaciones/director/store]
+in APPPATH\Controllers\EvaluacionDirectorController.php on line 241.
+ 1 APPPATH\Controllers\EvaluacionDirectorController.php(241): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "departamento_id"', 'C:\\xampp\\htdocs\\aurys\\app\\Controllers\\EvaluacionDirectorController.php', 241)
+ 2 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionDirectorController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionDirectorController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\aurys\\public\\index.php')

@@ -1,0 +1,141 @@
+ERROR - 2026-04-10 13:34:51 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'aurys' in C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'aurys', 3306, '', 0)
+#1 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#5 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#6 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#10 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#11 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#12 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'aurys' in C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\BaseConnection.php(1585): CodeIgniter\Database\BaseConnection->listTables()
+#4 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists('migrations')
+#5 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Database\MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#6 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#8 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+#9 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#10 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#11 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#12 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#13 C:\Users\Usuario\Desktop\sistema\Nueva-carpeta\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2026-04-10 13:51:02 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:17:26 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:17:38 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:18:24 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:19:48 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:23:25 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-10 15:23:30 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')

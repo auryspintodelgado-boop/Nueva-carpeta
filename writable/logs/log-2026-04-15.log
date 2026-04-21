@@ -1,0 +1,177 @@
+CRITICAL - 2026-04-15 12:56:59 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-15 13:13:33 --> ErrorException: Undefined variable $mes_seleccionado
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in APPPATH\Views\evaluaciones\empleado_del_mes.php on line 15.
+ 1 APPPATH\Views\evaluaciones\empleado_del_mes.php(15): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $mes_seleccionado', 'C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php', 15)
+ 2 SYSTEMPATH\View\View.php(238): include('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Views\\evaluaciones\\empleado_del_mes.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('evaluaciones/empleado_del_mes', [], true)
+ 5 APPPATH\Controllers\EvaluacionController.php(320): view('evaluaciones/empleado_del_mes', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+ERROR - 2026-04-15 13:22:02 --> Unknown column 'total_score' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = :MONTH(fecha_evaluacion):
+AND YEAR(fecha_evaluacion) = :YEAR(fecha_evaluacion):
+ORDER BY `total_score` DESC
+ LIMIT 10', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EvaluacionController.php(333): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-15 13:22:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'total_score' in 'order clause'
+[Method: GET, Route: evaluaciones/empleado-del-mes]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = :MONTH(fecha_evaluacion):
+AND YEAR(fecha_evaluacion) = :YEAR(fecha_evaluacion):
+ORDER BY `total_score` DESC
+ LIMIT 10', [...], false)
+ 2 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\EvaluacionController.php(333): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-15 13:22:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'total_score' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = :MONTH(fecha_evaluacion):
+AND YEAR(fecha_evaluacion) = :YEAR(fecha_evaluacion):
+ORDER BY `total_score` DESC
+ LIMIT 10', [...], false)
+ 4 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Controllers\EvaluacionController.php(333): CodeIgniter\BaseModel->findAll()
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-15 13:22:02 --> [Caused by] mysqli_sql_exception: Unknown column 'total_score' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = \'04\'
+AND YEAR(fecha_evaluacion) = \'2026\'
+ORDER BY `total_score` DESC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `evaluaciones`.*, `personas`.`primer_nombre`, `personas`.`primer_apellido`, `personas`.`foto`
+FROM `evaluaciones`
+JOIN `personas` ON `personas`.`id` = `evaluaciones`.`persona_id`
+WHERE MONTH(fecha_evaluacion) = :MONTH(fecha_evaluacion):
+AND YEAR(fecha_evaluacion) = :YEAR(fecha_evaluacion):
+ORDER BY `total_score` DESC
+ LIMIT 10', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Controllers\EvaluacionController.php(333): CodeIgniter\BaseModel->findAll()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\EvaluacionController->empleadoDelMes()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EvaluacionController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+ERROR - 2026-04-15 14:15:51 --> Duplicate entry 'admin' for key 'username'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `password_changed_at`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$Uu9HlMT2pPdjjM8170CtPOJfNK/f8qvRVnoldyFtNsD7WW0IvZarS\', \'Administrador del Sistema\', \'ADMIN\', \'ACTIVO\', \'2026-04-15 14:15:51\', \'2026-04-15 14:15:51\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `password_changed_at`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$Uu9HlMT2pPdjjM8170CtPOJfNK/f8qvRVnoldyFtNsD7WW0IvZarS\', \'Administrador del Sistema\', \'ADMIN\', \'ACTIVO\', \'2026-04-15 14:15:51\', \'2026-04-15 14:15:51\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `password_changed_at`, `created_at`) VALUES (\'admin\', \'admin@aurys.com\', \'$2y$10$Uu9HlMT2pPdjjM8170CtPOJfNK/f8qvRVnoldyFtNsD7WW0IvZarS\', \'Administrador del Sistema\', \'ADMIN\', \'ACTIVO\', \'2026-04-15 14:15:51\', \'2026-04-15 14:15:51\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `usuarios` (`username`, `email`, `password`, `nombre_completo`, `rol`, `estado`, `password_changed_at`, `created_at`) VALUES (:username:, :email:, :password:, :nombre_completo:, :rol:, :estado:, :password_changed_at:, :created_at:)', [...], false)
+ 5 APPPATH\Database\Seeds\UsuarioSeeder.php(22): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\UsuarioSeeder->run()
+ 7 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\UsuarioSeeder')
+ 8 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([])
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+10 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
