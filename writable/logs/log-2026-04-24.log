@@ -1,0 +1,31 @@
+ERROR - 2026-04-24 13:22:43 --> Error evaluación: persona_id=, persona_departamento_id=0, evaluacion_departamento_id=1
+CRITICAL - 2026-04-24 13:39:35 --> ParseError: syntax error, unexpected variable "$statsPersonas", expecting "function" or "const"
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\HomeController.php on line 154.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Controllers\\HomeController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\HomeController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\HomeController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\HomeController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('dashboard')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')
+CRITICAL - 2026-04-24 13:39:40 --> ParseError: syntax error, unexpected variable "$statsPersonas", expecting "function" or "const"
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\HomeController.php on line 154.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\app\\Controllers\\HomeController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\HomeController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\HomeController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\HomeController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('dashboard')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Usuario\\Desktop\\sistema\\Nueva-carpeta\\public\\index.php')

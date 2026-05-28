@@ -108,7 +108,24 @@
                 </div>
                 
                 <!-- Paginación -->
-                <?= $pager->links() ?>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-muted">Mostrar:</span>
+                        <select class="form-select form-select-sm" style="width: auto;" onchange="window.location.href='?perPage='+this.value<?= $busqueda ? '+&q=' . urlencode($busqueda) : '' ?>">
+                            <option value="10" <?= $perPage == 10 ? 'selected' : '' ?>>10</option>
+                            <option value="25" <?= $perPage == 25 ? 'selected' : '' ?>>25</option>
+                            <option value="50" <?= $perPage == 50 ? 'selected' : '' ?>>50</option>
+                            <option value="100" <?= $perPage == 100 ? 'selected' : '' ?>>100</option>
+                        </select>
+                        <span class="text-muted">registros</span>
+                    </div>
+                    <?= $pager->links() ?>
+                    <?php if ($pager->getPageCount() > 1): ?>
+                    <span class="text-muted small">
+                        Total: <?= $pager->getTotal() ?> registros
+                    </span>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>

@@ -21,6 +21,7 @@ $routes->get('/debug-session', 'AuthController::debugSession');
 // Dashboard
 $routes->get('/dashboard', 'HomeController::dashboard');
 $routes->get('/home', 'HomeController::dashboard');
+$routes->get('/home/personasByFilter', 'HomeController::personasByFilter');
 
 // Rutas de Personas
 $routes->get('/personas', 'PersonaController::index');

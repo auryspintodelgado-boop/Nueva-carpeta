@@ -28,10 +28,12 @@ class PersonaController extends BaseController
     public function index()
     {
         $busqueda = $this->request->getGet('q');
+        $perPage = $this->request->getGet('perPage') ?? 25;
         $rol = session()->get('rol');
         $departamentoId = session()->get('departamento_id');
         
-        // Si es ADMIN, ve todas las personas. Si es DIRECTOR, solo ve las de su departamento
+        $perPage = in_array($perPage, [10, 25, 50, 100]) ? $perPage : 25;
+        
         if ($rol === 'ADMIN' || $rol === 'EVALUADOR') {
             if ($busqueda) {
                 $personas = $this->personaModel
@@ -43,12 +45,12 @@ class PersonaController extends BaseController
                     ->groupEnd()
                     ->where('estado_registro', 'ACTIVO')
                     ->orderBy('primer_apellido', 'ASC')
-                    ->paginate(15);
+                    ->paginate($perPage);
             } else {
                 $personas = $this->personaModel
                     ->where('estado_registro', 'ACTIVO')
                     ->orderBy('primer_apellido', 'ASC')
-                    ->paginate(15);
+                    ->paginate($perPage);
             }
         } else {
             if ($busqueda) {
@@ -62,13 +64,13 @@ class PersonaController extends BaseController
                     ->where('departamento_id', $departamentoId)
                     ->where('estado_registro', 'ACTIVO')
                     ->orderBy('primer_apellido', 'ASC')
-                    ->paginate(15);
+                    ->paginate($perPage);
             } else {
                 $personas = $this->personaModel
                     ->where('departamento_id', $departamentoId)
                     ->where('estado_registro', 'ACTIVO')
                     ->orderBy('primer_apellido', 'ASC')
-                    ->paginate(15);
+                    ->paginate($perPage);
             }
         }
 
@@ -77,6 +79,7 @@ class PersonaController extends BaseController
             'personas'  => $personas,
             'pager'     => $this->personaModel->pager,
             'busqueda'  => $busqueda,
+            'perPage'   => $perPage,
             'departamentos' => $this->departamentoModel->findAll(),
         ];
 
@@ -235,7 +238,7 @@ class PersonaController extends BaseController
         ];
 
 if ($cedulaActual !== $persona['cedula']) {
-            $rules['cedula'] = 'required|regex_match[/^[VE]-[0-9]{6,9}$/]|is_unique[personas.cedula]';
+            $rules['cedula'] = 'required|regex_match[/^[VE]-[0-9]{6,9}$/]|is_unique[personas.cedula,id,' . $id . ']';
         } else {
             $rules['cedula'] = 'required';
         }
@@ -247,6 +250,8 @@ if ($cedulaActual !== $persona['cedula']) {
         }
 
         $data = $this->request->getPost();
+
+        log_message('debug', 'Datos recibidos para update: ' . json_encode($data));
 
         // Convertir cadena vacía a null para departamento_id
         if (isset($data['departamento_id']) && $data['departamento_id'] === '') {
@@ -293,6 +298,13 @@ if ($cedulaActual !== $persona['cedula']) {
         unset($data['eliminar_foto']);
 
         $result = $this->personaModel->update($id, $data);
+        
+        if (!$result) {
+            log_message('error', 'Error updating persona: ' . json_encode($this->personaModel->errors()));
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Error al actualizar: ' . json_encode($this->personaModel->errors()));
+        }
 
         return redirect()->to('/personas/show/' . $id)
             ->with('success', 'Persona actualizada exitosamente');

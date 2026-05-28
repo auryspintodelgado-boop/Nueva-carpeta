@@ -250,7 +250,12 @@ class EvaluacionController extends BaseController
 
             // Verificar que la persona evaluada pertenece al departamento del director
             $persona = $this->personaModel->find($evaluacion['persona_id']);
-            if (!$persona || $persona['departamento_id'] != $departamentoId) {
+            $personaDepartamentoId = intval($persona['departamento_id'] ?? 0);
+            $departamentoIdInt = intval($departamentoId ?? 0);
+            if (!$persona || $personaDepartamentoId !== $departamentoIdInt) {
+                log_message('error', 'Error acceso evaluación: evaluacion_id=' . $evaluacion['id'] . 
+                            ', persona_departamento_id=' . $personaDepartamentoId . 
+                            ', usuario_departamento_id=' . $departamentoIdInt);
                 return redirect()->to('/evaluaciones/director')->with('error', 'No tiene permiso para ver esta evaluación.');
             }
 

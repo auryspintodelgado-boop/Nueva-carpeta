@@ -25,57 +25,57 @@
         </div>
     <?php endif; ?>
 
-    <!-- Información del Evaluación -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0"><i class="bi bi-person-badge"></i> Datos de la Evaluación</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Unidad/Departamento</label>
-                    <input type="text" class="form-control" value="<?= $departamento['nombre'] ?? '' ?>" readonly>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Período a Evaluar *</label>
-                    <input type="month" name="mes_evaluado" class="form-control" required value="<?= $mesEvaluacion ?>">
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Fecha de Ingreso</label>
-                    <input type="date" name="fecha_ingreso" class="form-control" value="<?= date('Y-m-d') ?>">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label class="form-label">Personal a Evaluar *</label>
-                    <select name="persona_id" class="form-select" required id="personaSelect">
-                        <option value="">Seleccionar persona</option>
-                        <?php foreach ($personal as $p): ?>
-                            <?php 
-                            // Verificar si ya tiene evaluación en este mes
-                            $yaEvaluado = false;
-                            if (isset($evaluacionesPersona[$p['id']])) {
-                                $yaEvaluado = true;
-                            }
-                            ?>
-                            <option value="<?= $p['id'] ?>" <?= $yaEvaluado ? 'disabled' : '' ?>>
-                                <?= $p['cedula'] ?> - <?= $p['primer_nombre'] ?> <?= $p['primer_apellido'] ?>
-                                <?= $yaEvaluado ? ' (Ya evaluado)' : '' ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <form action="<?= base_url('/evaluaciones/director/store') ?>" method="post" id="formEvaluacion">
         <?= csrf_field() ?>
         
         <?php if (isset($departamento_id)): ?>
         <input type="hidden" name="departamento_id" value="<?= $departamento_id ?>">
         <?php endif; ?>
+
+        <!-- Información del Evaluación -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-person-badge"></i> Datos de la Evaluación</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Unidad/Departamento</label>
+                        <input type="text" class="form-control" value="<?= $departamento['nombre'] ?? '' ?>" readonly>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Período a Evaluar *</label>
+                        <input type="month" name="mes_evaluado" class="form-control" required value="<?= $mesEvaluacion ?>">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Fecha de Ingreso</label>
+                        <input type="date" name="fecha_ingreso" class="form-control" value="<?= date('Y-m-d') ?>">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Personal a Evaluar *</label>
+                        <select name="persona_id" class="form-select" required id="personaSelect">
+                            <option value="">Seleccionar persona</option>
+                            <?php foreach ($personal as $p): ?>
+                                <?php 
+                                // Verificar si ya tiene evaluación en este mes
+                                $yaEvaluado = false;
+                                if (isset($evaluacionesPersona[$p['id']])) {
+                                    $yaEvaluado = true;
+                                }
+                                ?>
+                                <option value="<?= $p['id'] ?>" <?= $yaEvaluado ? 'disabled' : '' ?>>
+                                    <?= $p['cedula'] ?> - <?= $p['primer_nombre'] ?> <?= $p['primer_apellido'] ?>
+                                    <?= $yaEvaluado ? ' (Ya evaluado)' : '' ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Instrucciones -->
         <div class="alert alert-info mb-4">

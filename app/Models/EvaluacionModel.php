@@ -334,8 +334,8 @@ class EvaluacionModel extends Model
                 $oriSum += intval($data[$campo]);
             }
         }
-        // Promedio * 5 = puntuación sobre 5
-        $resultado['orientacion'] = count($oriCampos) > 0 ? round(($oriSum / count($oriCampos)) * 5, 2) : 0;
+        // Promedio de los sub-campos (ya está sobre 5)
+        $resultado['orientacion'] = count($oriCampos) > 0 ? round($oriSum / count($oriCampos), 2) : 0;
 
         // Calidad y Organización (8 sub-campos)
         $calCampos = ['cal_no_errores', 'cal_recursos_racionales', 'cal_supervision', 
@@ -347,7 +347,7 @@ class EvaluacionModel extends Model
                 $calSum += intval($data[$campo]);
             }
         }
-        $resultado['calidad'] = count($calCampos) > 0 ? round(($calSum / count($calCampos)) * 5, 2) : 0;
+        $resultado['calidad'] = count($calCampos) > 0 ? round($calSum / count($calCampos), 2) : 0;
 
         // Relaciones Interpersonales (5 sub-campos)
         $relCampos = ['rel_cortes', 'rel_orientacion', 'rel_conflictos', 
@@ -358,7 +358,7 @@ class EvaluacionModel extends Model
                 $relSum += intval($data[$campo]);
             }
         }
-        $resultado['relaciones'] = count($relCampos) > 0 ? round(($relSum / count($relCampos)) * 5, 2) : 0;
+        $resultado['relaciones'] = count($relCampos) > 0 ? round($relSum / count($relCampos), 2) : 0;
 
         // Iniciativa (4 sub-campos)
         $iniCampos = ['ini_ideas', 'ini_cambio', 'ini_anticipacion', 'ini_resolucion'];
@@ -368,11 +368,15 @@ class EvaluacionModel extends Model
                 $iniSum += intval($data[$campo]);
             }
         }
-        $resultado['iniciativa'] = count($iniCampos) > 0 ? round(($iniSum / count($iniCampos)) * 5, 2) : 0;
+        $resultado['iniciativa'] = count($iniCampos) > 0 ? round($iniSum / count($iniCampos), 2) : 0;
 
         // Total (suma de las 4 secciones, máximo 20)
-        $resultado['total'] = min(round($resultado['orientacion'] + $resultado['calidad'] + 
-                                       $resultado['relaciones'] + $resultado['iniciativa'], 2), 20.00);
+        $resultado['total'] = round($resultado['orientacion'] + $resultado['calidad'] + 
+                                   $resultado['relaciones'] + $resultado['iniciativa'], 2);
+        // Asegurar que no exceda 20
+        if ($resultado['total'] > 20) {
+            $resultado['total'] = 20.00;
+        }
 
         return $resultado;
     }

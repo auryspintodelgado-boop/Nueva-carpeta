@@ -168,15 +168,14 @@ class EvaluacionDirectorController extends BaseController
             
             // Si no hay departamento seleccionado, ir a la vista de selección
             if (!$departamentoId) {
-                // Primero ir al índice para seleccionar departamento
                 return redirect()->to('/evaluaciones/director');
             }
             
             // Guardar en sesión
             session()->set('departamento_seleccionado', $departamentoId);
             $departamento = $this->departamentoModel->find($departamentoId);
-            // ADMIN puede ver todas las personas activas
-            $personal = $this->personaModel->getPersonasActivasTodas();
+            // Mostrar solo personas del departamento seleccionado
+            $personal = $this->personaModel->getPersonasPorDepartamento($departamentoId);
             $departamentos = $this->departamentoModel->getDepartamentosActivos();
         } else {
             $departamentoId = $usuario['departamento_id'] ?? null;
@@ -187,21 +186,21 @@ class EvaluacionDirectorController extends BaseController
             }
             
             $departamento = $this->departamentoModel->find($departamentoId);
-            
-            // Si es ADMIN, mostrar todas las personas activas
-            $esAdmin = isset($usuario['rol']) && $usuario['rol'] === 'ADMIN';
-            if ($esAdmin) {
-                $personal = $this->personaModel->getPersonasActivasTodas();
-            } else {
-                $personal = $this->personaModel->getPersonasPorDepartamento($departamentoId);
-            }
-            
+            // Mostrar solo personas del departamento
+            $personal = $this->personaModel->getPersonasPorDepartamento($departamentoId);
             $departamentos = null;
         }
         
         // Obtener mes a evaluar (por defecto el actual)
         $mesEvaluacion = $this->request->getGet('mes') ?? date('Y-m');
-
+        
+        // Obtener evaluaciones existentes para este mes/departamento
+        $evaluacionesExistentes = $this->evaluacionModel->getEvaluacionesDepartamento($departamentoId, $mesEvaluacion);
+        $evaluacionesPersona = [];
+        foreach ($evaluacionesExistentes as $ev) {
+            $evaluacionesPersona[$ev['persona_id']] = $ev;
+        }
+        
         $data = [
             'title' => 'Nueva Evaluación Mensual',
             'departamento' => $departamento,
@@ -210,8 +209,9 @@ class EvaluacionDirectorController extends BaseController
             'mesEvaluacion' => $mesEvaluacion,
             'evaluacion' => null,
             'departamentos' => $departamentos,
+            'evaluacionesPersona' => $evaluacionesPersona,
         ];
-
+        
         return view('evaluaciones/director/create', $data);
     }
 
@@ -254,12 +254,17 @@ class EvaluacionDirectorController extends BaseController
                 ->with('error', 'La persona seleccionada no existe.');
         }
         
-        // Usar ?? 0 para evitar error si no tiene departamento
-        $personaDepartamentoId = $persona['departamento_id'] ?? 0;
-        if ($personaDepartamentoId != $departamentoId) {
+        // Convertir a entero para comparación segura (manejar NULL, string, int)
+        $personaDepartamentoId = intval($persona['departamento_id'] ?? 0);
+        $departamentoIdInt = intval($departamentoId ?? 0);
+        
+        if ($personaDepartamentoId !== $departamentoIdInt) {
+            log_message('error', 'Error evaluación: persona_id=' . $personaId . 
+                        ', persona_departamento_id=' . $personaDepartamentoId . 
+                        ', evaluacion_departamento_id=' . $departamentoIdInt);
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'La persona seleccionada no pertenece al departamento seleccionado.');
+                ->with('error', 'La persona seleccionada no pertenece al departamento seleccionado. Verifique que la persona tenga asignado el departamento correctamente.');
         }
 
         // Validar campos requeridos

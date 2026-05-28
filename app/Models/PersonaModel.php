@@ -64,6 +64,8 @@ class PersonaModel extends Model
         'fecha_registro',
         'estado_registro',
         'usuario_registro',
+        'created_at',
+        'updated_at',
     ];
 
     protected $useTimestamps = true;
@@ -71,7 +73,7 @@ class PersonaModel extends Model
     protected $updatedField  = 'updated_at';
 
     protected $validationRules = [
-        'cedula'            => 'required|is_unique[personas.cedula]',
+        'cedula'            => 'required',
         'primer_nombre'     => 'required|min_length[2]|max_length[50]',
         'primer_apellido'   => 'required|min_length[2]|max_length[50]',
         'correo_electronico' => 'valid_email',
@@ -284,5 +286,449 @@ class PersonaModel extends Model
         arsort($tiposSangre);
 
         return $tiposSangre;
+    }
+
+    /**
+     * Obtiene estadísticas de estado civil
+     */
+    public function getEstadisticasEstadoCivil($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $estados = [];
+        
+        foreach ($personas as $p) {
+            $estado = $p['estado_civil'] ?? 'No definido';
+            if (!isset($estados[$estado])) {
+                $estados[$estado] = 0;
+            }
+            $estados[$estado]++;
+        }
+        
+        arsort($estados);
+        return $estados;
+    }
+
+    /**
+     * Obtiene estadísticas de edad (por rangos)
+     */
+    public function getEstadisticasEdad($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $rangos = [
+            '18-25' => 0,
+            '26-35' => 0,
+            '36-45' => 0,
+            '46-55' => 0,
+            '56+' => 0,
+            'No definido' => 0
+        ];
+        
+        foreach ($personas as $p) {
+            if (empty($p['fecha_nacimiento'])) {
+                $rangos['No definido']++;
+                continue;
+            }
+            
+            $edad = (new \DateTime($p['fecha_nacimiento']))->diff(new \DateTime())->y;
+            
+            if ($edad <= 25) $rangos['18-25']++;
+            elseif ($edad <= 35) $rangos['26-35']++;
+            elseif ($edad <= 45) $rangos['36-45']++;
+            elseif ($edad <= 55) $rangos['46-55']++;
+            else $rangos['56+']++;
+        }
+        
+        return $rangos;
+    }
+
+    /**
+     * Obtiene estadísticas de nacionalidad
+     */
+    public function getEstadisticasNacionalidad($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $nacionalidades = [];
+        
+        foreach ($personas as $p) {
+            $nac = $p['nacionalidad'] ?? 'No definido';
+            if (!isset($nacionalidades[$nac])) {
+                $nacionalidades[$nac] = 0;
+            }
+            $nacionalidades[$nac]++;
+        }
+        
+        arsort($nacionalidades);
+        return $nacionalidades;
+    }
+
+    /**
+     * Obtiene estadísticas de estado (geográfico)
+     */
+    public function getEstadisticasEstado($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $estados = [];
+        
+        foreach ($personas as $p) {
+            $estado = $p['estado'] ?? 'No definido';
+            if (!isset($estados[$estado])) {
+                $estados[$estado] = 0;
+            }
+            $estados[$estado]++;
+        }
+        
+        arsort($estados);
+        return $estados;
+    }
+
+    /**
+     * Obtiene estadísticas de municipio
+     */
+    public function getEstadisticasMunicipio($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $municipios = [];
+        
+        foreach ($personas as $p) {
+            $muni = $p['municipio'] ?? 'No definido';
+            if (!isset($municipios[$muni])) {
+                $municipios[$muni] = 0;
+            }
+            $municipios[$muni]++;
+        }
+        
+        arsort($municipios);
+        return array_slice($municipios, 0, 10, true); // Top 10
+    }
+
+    /**
+     * Obtiene estadísticas de comuna
+     */
+    public function getEstadisticasComuna($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $comunas = [];
+        
+        foreach ($personas as $p) {
+            $comuna = $p['comuna'] ?? 'No definido';
+            if (!isset($comunas[$comuna])) {
+                $comunas[$comuna] = 0;
+            }
+            $comunas[$comuna]++;
+        }
+        
+        arsort($comunas);
+        return array_slice($comunas, 0, 10, true); // Top 10
+    }
+
+    /**
+     * Obtiene estadísticas de parroquia
+     */
+    public function getEstadisticasParroquia($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $parroquias = [];
+        
+        foreach ($personas as $p) {
+            $parr = $p['parroquia'] ?? 'No definido';
+            if (!isset($parroquias[$parr])) {
+                $parroquias[$parr] = 0;
+            }
+            $parroquias[$parr]++;
+        }
+        
+        arsort($parroquias);
+        return array_slice($parroquias, 0, 10, true); // Top 10
+    }
+
+    /**
+     * Obtiene estadísticas de nivel académico
+     */
+    public function getEstadisticasNivelAcademico($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $niveles = [];
+        
+        foreach ($personas as $p) {
+            $nivel = $p['nivel_academico'] ?? 'No definido';
+            if (!isset($niveles[$nivel])) {
+                $niveles[$nivel] = 0;
+            }
+            $niveles[$nivel]++;
+        }
+        
+        arsort($niveles);
+        return $niveles;
+    }
+
+    /**
+     * Obtiene estadísticas de becas
+     */
+    public function getEstadisticasBeca($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $becas = [
+            'Recibe beca' => 0,
+            'No recibe beca' => 0,
+            'No definido' => 0
+        ];
+        
+        foreach ($personas as $p) {
+            if (!isset($p['posee_beca'])) {
+                $becas['No definido']++;
+            } elseif ($p['posee_beca'] === 'S') {
+                $becas['Recibe beca']++;
+            } elseif ($p['posee_beca'] === 'N') {
+                $becas['No recibe beca']++;
+            }
+        }
+        
+        return $becas;
+    }
+
+    /**
+     * Obtiene estadísticas de tipo de universidad (pública/privada)
+     */
+    public function getEstadisticasTipoUniversidad($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $tipos = [
+            'Pública' => 0,
+            'Privada' => 0,
+            'No estudia' => 0
+        ];
+        
+        foreach ($personas as $p) {
+            if (empty($p['tipo_ieu'])) {
+                $tipos['No estudia']++;
+            } elseif ($p['tipo_ieu'] === 'PUBLICA') {
+                $tipos['Pública']++;
+            } elseif ($p['tipo_ieu'] === 'PRIVADA') {
+                $tipos['Privada']++;
+            }
+        }
+        
+        return $tipos;
+    }
+
+    /**
+     * Obtiene estadísticas de carreras
+     */
+    public function getEstadisticasCarrera($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $carreras = [];
+        
+        foreach ($personas as $p) {
+            if (empty($p['carrera'])) {
+                continue;
+            }
+            $carrera = $p['carrera'];
+            if (!isset($carreras[$carrera])) {
+                $carreras[$carrera] = 0;
+            }
+            $carreras[$carrera]++;
+        }
+        
+        arsort($carreras);
+        return array_slice($carreras, 0, 10, true); // Top 10
+    }
+
+    /**
+     * Obtiene estadísticas de universidades
+     */
+    public function getEstadisticasUniversidad($departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+        
+        $personas = $builder->findAll();
+        $universidades = [];
+        
+        foreach ($personas as $p) {
+            if (empty($p['siglas_universidad'])) {
+                continue;
+            }
+            $uni = $p['siglas_universidad'];
+            if (!isset($universidades[$uni])) {
+                $universidades[$uni] = 0;
+            }
+            $universidades[$uni]++;
+        }
+        
+        arsort($universidades);
+        return array_slice($universidades, 0, 10, true); // Top 10
+    }
+
+    /**
+     * Obtiene personas filtradas por diferentes criterios
+     * 
+     * @param string $filterType Tipo de filtro: estado_civil, edad, nacionalidad, estado, municipio, comuna, parroquia, nivel_academico, beca, tipo_universidad, carrera, universidad
+     * @param string $filterValue Valor a filtrar
+     * @param int|null $departamentoId ID del departamento (opcional)
+     * @return array Lista de personas que cumplen el criterio
+     */
+    public function getPersonasByFilter($filterType, $filterValue, $departamentoId = null)
+    {
+        $builder = $this->where('estado_registro', 'ACTIVO');
+        
+        if ($departamentoId) {
+            $builder->where('departamento_id', $departamentoId);
+        }
+
+        switch ($filterType) {
+            case 'estado_civil':
+                $builder->where('estado_civil', $filterValue);
+                break;
+            
+            case 'edad':
+                // $filterValue es un rango como "18-25", "26-35", etc.
+                if ($filterValue === '56+') {
+                    $builder->where('fecha_nacimiento <=', date('Y-m-d', strtotime('-56 years')));
+                } elseif (preg_match('/^(\d+)-(\d+)$/', $filterValue, $matches)) {
+                    $edadMin = intval($matches[1]);
+                    $edadMax = intval($matches[2]);
+                    $fechaMax = date('Y-m-d', strtotime("-$edadMin years"));
+                    $fechaMin = date('Y-m-d', strtotime("-$edadMax years -364 days"));
+                    $builder->where('fecha_nacimiento >=', $fechaMin)
+                            ->where('fecha_nacimiento <=', $fechaMax);
+                }
+                break;
+            
+            case 'nacionalidad':
+                $builder->where('nacionalidad', $filterValue);
+                break;
+            
+            case 'estado':
+                $builder->where('estado', $filterValue);
+                break;
+            
+            case 'municipio':
+                $builder->where('municipio', $filterValue);
+                break;
+            
+            case 'comuna':
+                $builder->where('comuna', $filterValue);
+                break;
+            
+            case 'parroquia':
+                $builder->where('parroquia', $filterValue);
+                break;
+            
+            case 'nivel_academico':
+                $builder->where('nivel_academico', $filterValue);
+                break;
+            
+            case 'beca':
+                if ($filterValue === 'Recibe beca') {
+                    $builder->where('posee_beca', 'S');
+                } elseif ($filterValue === 'No recibe beca') {
+                    $builder->where('posee_beca', 'N');
+                }
+                break;
+            
+            case 'tipo_universidad':
+                if ($filterValue === 'Pública') {
+                    $builder->where('tipo_ieu', 'PUBLICA');
+                } elseif ($filterValue === 'Privada') {
+                    $builder->where('tipo_ieu', 'PRIVADA');
+                } elseif ($filterValue === 'No estudia') {
+                    $builder->where('tipo_ieu IS NULL');
+                }
+                break;
+            
+            case 'carrera':
+                $builder->where('carrera', $filterValue);
+                break;
+            
+            case 'universidad':
+                $builder->where('siglas_universidad', $filterValue);
+                break;
+            
+            case 'departamento':
+                // $filterValue es el nombre del departamento, necesitamos el ID
+                $deptModel = new \App\Models\DepartamentoModel();
+                $dept = $deptModel->where('nombre', $filterValue)->first();
+                if ($dept) {
+                    $builder->where('departamento_id', $dept['id']);
+                } else {
+                    return []; // No hay coincidencias
+                }
+                break;
+            
+            case 'sexo':
+                // $filterValue esperado: 'M' o 'F'
+                $builder->where('sexo', $filterValue);
+                break;
+            
+            case 'discapacidad':
+                // $filterValue esperado: 'S' o 'N'
+                $builder->where('posee_discapacidad', $filterValue);
+                break;
+            
+            default:
+                return [];
+        }
+        
+        return $builder->orderBy('primer_apellido', 'ASC')
+                     ->orderBy('primer_nombre', 'ASC')
+                     ->findAll();
     }
 }
